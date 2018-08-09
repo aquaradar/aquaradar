@@ -32,6 +32,8 @@ class NotificationController extends Controller {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($notification);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Notificação inserida com sucesso!');
 
             return $this->redirectToRoute('notification');
         }

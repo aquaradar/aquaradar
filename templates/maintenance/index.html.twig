@@ -23,6 +23,13 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
+                    {% if app.session.flashBag.has('success') %}
+                        <div class="alert alert-success alert-dismissable">
+                            {% for msg in app.session.flashBag.get('success') %}
+                                {{ msg }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                     {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
                     <div class="form-group {{ form_errors(form.address) is not empty ? 'has-error' }}">
                         {{ form_label(form.address) }}

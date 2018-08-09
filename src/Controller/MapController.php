@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MapController extends Controller {
 
     /**
-     * @Route("/map", name="map")
+     * @Route("/map/", name="map")
      */
     public function index(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();

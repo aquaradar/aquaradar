@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="notification")
  * @ORM\Entity
  */
-class Notification
-{
+class Notification {
+
     /**
      * @var int
      *
@@ -57,11 +57,81 @@ class Notification
     private $longitude;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="type", type="boolean", nullable=false, options={"comment"="0 - vazamento 1 - falta agua"})
+     */
+    private $type;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="fos_user_id", type="integer", nullable=false)
      */
     private $fosUserId;
+    
+    function getId() {
+        return $this->id;
+    }
 
+    function getInsert(): \DateTime {
+        return $this->insert;
+    }
+
+    function getUpdate(): \DateTime {
+        return $this->update;
+    }
+
+    function getAddress() {
+        return $this->address;
+    }
+
+    function getLatitude() {
+        return $this->latitude;
+    }
+
+    function getLongitude() {
+        return $this->longitude;
+    }
+
+    function getType() {
+        return $this->type;
+    }
+
+    function getFosUserId() {
+        return $this->fosUserId;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setInsert(\DateTime $insert) {
+        $this->insert = $insert;
+    }
+
+    function setUpdate(\DateTime $update) {
+        $this->update = $update;
+    }
+
+    function setAddress($address) {
+        $this->address = $address;
+    }
+
+    function setLatitude($latitude) {
+        $this->latitude = $latitude;
+    }
+
+    function setLongitude($longitude) {
+        $this->longitude = $longitude;
+    }
+
+    function setType($type) {
+        $this->type = $type;
+    }
+
+    function setFosUserId($fosUserId) {
+        $this->fosUserId = $fosUserId;
+    }
 
 }

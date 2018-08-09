@@ -24,16 +24,16 @@ class Notification {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insert", type="datetime", nullable=false)
+     * @ORM\Column(name="inserted", type="datetime", nullable=false)
      */
-    private $insert;
+    private $inserted;
 
     /**
      * @var \DateTime|null
      *
-     * @ORM\Column(name="update", type="datetime", nullable=true)
+     * @ORM\Column(name="updated", type="datetime", nullable=true)
      */
-    private $update;
+    private $updated;
 
     /**
      * @var string
@@ -74,12 +74,12 @@ class Notification {
         return $this->id;
     }
 
-    function getInsert(): \DateTime {
-        return $this->insert;
+    function getInserted(): \DateTime {
+        return $this->inserted;
     }
 
-    function getUpdate(): \DateTime {
-        return $this->update;
+    function getUpdated(): \DateTime {
+        return $this->updated;
     }
 
     function getAddress() {
@@ -106,12 +106,12 @@ class Notification {
         $this->id = $id;
     }
 
-    function setInsert(\DateTime $insert) {
-        $this->insert = $insert;
+    function setInserted(\DateTime $insert) {
+        $this->inserted = $insert;
     }
 
-    function setUpdate(\DateTime $update) {
-        $this->update = $update;
+    function setUpdated(\DateTime $update) {
+        $this->updated = $update;
     }
 
     function setAddress($address) {

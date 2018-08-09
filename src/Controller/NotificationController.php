@@ -23,7 +23,14 @@ class NotificationController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $notification = $form->getData();
             
-            echo $notification->getAddress();
+            $notification->setInserted((new \DateTime('NOW')));
+            $notification->setFosUserId(/*$this->getUser()->getId()*/ 0);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($notification);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('notification');
         }
         
         $parameters['form'] = $form->createView();

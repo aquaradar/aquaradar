@@ -44,6 +44,8 @@ class MaintenanceController extends Controller {
                 $entityManager->persist($maintenance);
                 $entityManager->flush();
 
+                $this->addFlash('success', 'Manutenção inserida com sucesso!');
+
                 return $this->redirectToRoute('maintenance');
             }
         }

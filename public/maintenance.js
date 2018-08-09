@@ -25,3 +25,7 @@ function autocomplete() {
         document.getElementById('maintenance_longitude').value = place.geometry.location.lng();
     });
 }
+
+document.getElementById('maintenance_address').addEventListener('keyup', function(){
+   document.getElementById('maintenance_latitude').value = document.getElementById('maintenance_longitude').value = '';
+});

@@ -16,8 +16,16 @@ function autocomplete() {
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         place = autocomplete.getPlace();
 
+        if (null == place.geometry) {
+            element.value = '';
+            return false;
+        }
 
         document.getElementById('notification_latitude').value = place.geometry.location.lat();
         document.getElementById('notification_longitude').value = place.geometry.location.lng();
     });
 }
+
+document.getElementById('notification_address').addEventListener('keyup', function(){
+   document.getElementById('notification_latitude').value = document.getElementById('notification_longitude').value = '';
+});

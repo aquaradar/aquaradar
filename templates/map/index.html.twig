@@ -4,7 +4,7 @@
     {{ parent() }}
     <style>
         #radarMap {
-            height: 600px;
+            height: 700px;
         }
         #legend {
             font-family: Arial, sans-serif;
@@ -55,11 +55,11 @@
             var icons = {
                 faltaDagua: {
                     name: 'Falta D\'agua',
-                    image: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    image: '{{ absolute_url(asset('map/semaguamedio.png')) }}'
                 },
                 vazamento: {
                     name: 'Vazamento',
-                    image: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                    image: '{{ absolute_url(asset('map/vazamentomedio.png')) }}'
                 }
             };
 

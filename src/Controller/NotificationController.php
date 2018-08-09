@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class NotificationController extends Controller {
 
     /**
-     * @Route("/notification", name="notification")
+     * @Route("/notification/", name="notification")
      */
     public function index(Request $request) {
         
@@ -31,7 +31,7 @@ class NotificationController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $notification = $form->getData();
             
-            $notification->setInserted((new DateTime('NOW')));
+            $notification->setInserted(new DateTime('NOW'));
             
             $notification->setFosUserId($this->getUser()->getId());
 

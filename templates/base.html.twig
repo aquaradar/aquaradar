@@ -95,6 +95,11 @@
                             <li>
                                 <a href="{{ path('notification') }}"><i class="fa fa-bell fa-fw"></i> Notificação</a>
                             </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('maintenance') }}"><i class="fa fa-wrench fa-fw"></i> Manutenção</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->

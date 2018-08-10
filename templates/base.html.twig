@@ -92,11 +92,6 @@
                             <li class="active">
                                 <a href="{{ path('home') }}"><i class="fa fa-home fa-fw"></i> Home</a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                            {% endif %}
                             <li>
                                 <a href="{{ path('notification') }}"><i class="fa fa-bell fa-fw"></i> Notificação</a>
                             </li>
@@ -120,11 +115,14 @@
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Administração<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
                                         <li>
+                                            <a href="{{ path('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ path('maintenance') }}"><i class="fa fa-wrench fa-fw"></i> Manutenção</a>
                                         </li>
                                         <li>
                                             <a href="{{ path('tank_index') }}"><i class="fa fa-tint fa-fw"></i> Reservatórios</a>
-                                        </li>
+                                        </li>                                        
                                     </ul>
                                     <!-- /.nav-second-level -->
                                 </li>

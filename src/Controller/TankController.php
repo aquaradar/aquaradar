@@ -5,13 +5,17 @@ namespace App\Controller;
 use App\Entity\Tank;
 use App\Form\TankType;
 use App\Repository\TankRepository;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/tank")
+ * @Security("has_role('ROLE_ADMIN')")
  */
 class TankController extends Controller {
 
@@ -36,14 +40,18 @@ class TankController extends Controller {
             }
 
             if ($form->isValid()) {
+                try {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($tank);
+                    $em->flush();
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($tank);
-                $em->flush();
-
-                $this->addFlash('success', 'Manutenção inserida com sucesso!');
-
-                return $this->redirectToRoute('tank_index');
+                    if ($tank->getId()) {
+                        $this->addFlash('success', 'Manutenção inserida com sucesso!');
+                        return $this->redirectToRoute('tank_new');
+                    }
+                } catch (UniqueConstraintViolationException $e) {
+                    $form->get('address')->addError(new FormError('Já existe um reservatório cadastrado nesse endereço!'));
+                }
             }
         }
 
@@ -54,23 +62,27 @@ class TankController extends Controller {
     }
 
     /**
-     * @Route("/{id}", name="tank_show", methods="GET")
-     */
-    public function show(Tank $tank): Response {
-        return $this->render('tank/show.html.twig', ['tank' => $tank]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="tank_edit", methods="GET|POST")
      */
     public function edit(Request $request, Tank $tank): Response {
         $form = $this->createForm(TankType::class, $tank);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted()) {
+            if (empty($tank->getLatitude()) || empty($tank->getLongitude())) {
+                $form->get('address')->addError(new FormError('Selecione um endereço da lista!'));
+            }
+            if ($form->isValid()) {
+                try {
+                    $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('tank_edit', ['id' => $tank->getId()]);
+                    $this->addFlash('success', 'Manutenção inserida com sucesso!');
+
+                    return $this->redirectToRoute('tank_edit', ['id' => $tank->getId()]);
+                } catch (UniqueConstraintViolationException $e) {
+                    $form->get('address')->addError(new FormError('Já existe um reservatório cadastrado nesse endereço!'));
+                }
+            }
         }
 
         return $this->render('tank/edit.html.twig', [

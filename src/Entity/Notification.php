@@ -66,6 +66,13 @@ class Notification {
     /**
      * @var int
      *
+     * @ORM\Column(name="status", type="smallint", nullable=false, options={ "comment"="0 - pendente 1 - resolvido 2 - fechado"})
+     */
+    private $status = 0;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="fos_user_id", type="integer", nullable=false)
      */
     private $fosUserId;
@@ -78,7 +85,7 @@ class Notification {
         return $this->inserted;
     }
 
-    function getUpdated(): \DateTime {
+    function getUpdated(): ?\DateTime {
         return $this->updated;
     }
 
@@ -96,6 +103,10 @@ class Notification {
 
     function getType() {
         return $this->type;
+    }
+
+    function getStatus() {
+        return $this->status;
     }
 
     function getFosUserId() {
@@ -128,6 +139,10 @@ class Notification {
 
     function setType($type) {
         $this->type = $type;
+    }
+
+    function setStatus($status) {
+        $this->status = $status;
     }
 
     function setFosUserId($fosUserId) {

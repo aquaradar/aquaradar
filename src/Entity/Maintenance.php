@@ -62,6 +62,13 @@ class Maintenance {
      * @ORM\Column(name="info", type="string", length=255, nullable=false)
      */
     private $info;
+    
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="status", type="smallint", nullable=true, options={"comment"="0 - pendente 1 - resolvido 2 - fechado"})
+     */
+    private $status = 0;
 
     /**
      * @var int
@@ -98,6 +105,10 @@ class Maintenance {
         return $this->info;
     }
 
+    function getStatus() {
+        return $this->status;
+    }
+
     function getFosUserId() {
         return $this->fosUserId;
     }
@@ -128,6 +139,10 @@ class Maintenance {
 
     function setInfo($info) {
         $this->info = $info;
+    }
+
+    function setStatus($status) {
+        $this->status = $status;
     }
 
     function setFosUserId($fosUserId) {

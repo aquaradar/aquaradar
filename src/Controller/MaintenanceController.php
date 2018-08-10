@@ -22,6 +22,8 @@ class MaintenanceController extends Controller {
     public function index(Request $request) {
 
         $maintenance = $this->getMaintenanceEntity();
+        
+        $entityManager = $this->getDoctrine()->getManager();
 
         $form = $this->createForm($this->getMaintenanceType(), $maintenance, array());
 
@@ -40,7 +42,6 @@ class MaintenanceController extends Controller {
 
                 $maintenance->setFosUserId($this->getUser()->getId());
 
-                $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($maintenance);
                 $entityManager->flush();
 
@@ -51,8 +52,34 @@ class MaintenanceController extends Controller {
         }
 
         $parameters['form'] = $form->createView();
+        
+        $parameters['maintenances'] = $entityManager->getRepository("App\Entity\Maintenance")->findBy(
+            ['fosUserId' => $this->getUser()->getId()]
+        );
 
         return $this->render('maintenance/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route(
+     *      path            = "/maintenance/status/atualizar/{maintenanceId}/{statusId}/",
+     *      requirements    = {"maintenanceId": "[0-9]+", "statusId": "[0-9]+"},
+     *      methods         = {"GET"}
+     * ),
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function atualizarStatusAction(Request $request, $maintenanceId, $statusId) {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $maintenance = $entityManager->getRepository("App\Entity\Maintenance")->find($maintenanceId);
+
+        $maintenance->setStatus($statusId);
+        $maintenance->setId($maintenanceId);
+
+        $entityManager->merge($maintenance);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('maintenance');
     }
 
     /**

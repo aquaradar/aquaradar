@@ -103,15 +103,23 @@
                             <li>
                                 <a href="{{ path('map') }}"><i class="fa fa-map-marker fa-fw"></i> Mapa</a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('maintenance') }}"><i class="fa fa-wrench fa-fw"></i> Manutenção</a>
-                                </li>
-                            {% endif %}
                             <li>
                                 <a href="{{ path('denouncement') }}"><i class="fa fa-warning fa-fw"></i> Denúncias</a>
                             </li>
-
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="">
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Administração<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                                        <li>
+                                            <a href="{{ path('maintenance') }}"><i class="fa fa-wrench fa-fw"></i> Manutenção</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('tank_index') }}"><i class="fa fa-tint fa-fw"></i> Reservatórios</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <!-- /.sidebar-collapse -->

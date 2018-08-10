@@ -33,7 +33,7 @@ class MaintenanceController extends Controller {
             $maintenance = $form->getData();
 
             if (empty($maintenance->getLatitude()) || empty($maintenance->getLongitude())) {
-                $form->get('address')->addError(new FormError('Selecione um endereço da lista!'));
+                $form->get('address')->addError(new FormError('Selecione um endereço da lista! O endereço deve ser da cidade de Bauru, SP.'));
             }
 
             if ($form->isValid()) {

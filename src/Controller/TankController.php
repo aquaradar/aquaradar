@@ -36,7 +36,7 @@ class TankController extends Controller {
 
         if ($form->isSubmitted()) {
             if (empty($tank->getLatitude()) || empty($tank->getLongitude())) {
-                $form->get('address')->addError(new FormError('Selecione um endereço da lista!'));
+                $form->get('address')->addError(new FormError('Selecione um endereço da lista! O endereço deve ser da cidade de Bauru, SP.'));
             }
 
             if ($form->isValid()) {
@@ -70,7 +70,7 @@ class TankController extends Controller {
 
         if ($form->isSubmitted()) {
             if (empty($tank->getLatitude()) || empty($tank->getLongitude())) {
-                $form->get('address')->addError(new FormError('Selecione um endereço da lista!'));
+                $form->get('address')->addError(new FormError('Selecione um endereço da lista! O endereço deve ser da cidade de Bauru, SP.'));
             }
             if ($form->isValid()) {
                 try {

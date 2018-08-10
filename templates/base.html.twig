@@ -99,6 +99,9 @@
                                 <a href="{{ path('map') }}"><i class="fa fa-map-marker fa-fw"></i> Mapa</a>
                             </li>
                             <li>
+                                <a href="{{ path('tank_map') }}"><i class="fa fa-map-marker fa-fw"></i> Mapa dos reservatórios</a>
+                            </li>
+                            <li>
                                 <a href="{{ path('denouncement') }}"><i class="fa fa-warning fa-fw"></i> Denúncias</a>
                             </li>
                             {% if is_granted('ROLE_ADMIN') %}

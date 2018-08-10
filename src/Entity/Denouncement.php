@@ -47,9 +47,6 @@ class Denouncement {
 
     /**
      * @var string
-     * @Assert\NotBlank(
-     *     message = "Choose a valid location."
-     * )
      *
      * @ORM\Column(name="latitude", type="string", nullable=false)
      */

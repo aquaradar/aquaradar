@@ -1,0 +1,67 @@
+{% if app.session.flashBag.has('success') %}
+    <div class="alert alert-success alert-dismissable">
+        {% for msg in app.session.flashBag.get('success') %}
+            {{ msg }}
+        {% endfor %}
+    </div>
+{% endif %}
+{{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+<div class="form-group {{ form_errors(form.address) is not empty ? 'has-error' }}">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, {'attr' : {'class' : 'form-control'}}) }}
+    {% if form_errors(form.name) is not empty %}
+        <label class="control-label">{{ form_errors(form.name) }}</label>
+    {% endif %}
+</div>
+<div class="form-group {{ form_errors(form.address) is not empty ? 'has-error' }}">
+    {{ form_label(form.address) }}
+    {{ form_widget(form.address, {'attr' : {'class' : 'form-control', 'maxlength': '255'}}) }}
+    {% if form_errors(form.address) is not empty %}
+        <label class="control-label">{{ form_errors(form.address) }}</label>
+    {% endif %}
+</div>
+{{ form_widget(form.latitude) }}
+{{ form_widget(form.longitude) }}
+<div class="form-group {{ form_errors(form.level) is not empty ? 'has-error' }}">
+    {{ form_label(form.level) }}
+    {{ form_widget(form.level, {'attr' : {'class' : 'form-control', 'maxlength': '255'}}) }}
+    {% if form_errors(form.level) is not empty %}
+        <label class="control-label">{{ form_errors(form.level) }}</label>
+    {% endif %}
+</div>
+{{ form_widget(form.send, {'attr' : {'label': button_label|default('Enviar'), 'class' : 'btn btn-default'}}) }}
+{{ form_end(form) }}
+
+<script>
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.onload = function () {
+        autocomplete();
+    };
+    s.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCai41x2wQ6DF0HqF8R552eED4R7s1m1EU&libraries=places";
+
+    document.body.appendChild(s);
+
+    function autocomplete() {
+
+        var element = document.getElementById('tank_address');
+
+        var autocomplete = new google.maps.places.Autocomplete(element);
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            place = autocomplete.getPlace();
+
+            if (null == place.geometry) {
+                element.value = '';
+                return false;
+            }
+
+            document.getElementById('tank_latitude').value = place.geometry.location.lat();
+            document.getElementById('tank_longitude').value = place.geometry.location.lng();
+        });
+    }
+
+    document.getElementById('tank_address').addEventListener('keyup', function () {
+        document.getElementById('tank_latitude').value = document.getElementById('tank_longitude').value = '';
+    });
+</script>

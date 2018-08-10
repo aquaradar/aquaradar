@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservatórios{% endblock %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Reservatórios</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Nível</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tank in tanks %}
+                                <tr>
+                                    <td>{{ tank.name }}</td>
+                                    <td>{{ tank.address }}</td>
+                                    <td>{{ tank.latitude }}</td>
+                                    <td>{{ tank.longitude }}</td>
+                                    <td>{{ tank.level }}%</td>
+                                    <td>
+                                        <a href="{{ path('tank_edit', {'id': tank.id}) }}">Editar</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7">Nenhum reservatório cadastrado.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br/>
+                    <a class="btn btn-success" href="{{ path('tank_new') }}">Cadastrar Reservatório</a>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+{% endblock %}

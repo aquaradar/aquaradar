@@ -9,7 +9,7 @@ document.body.appendChild(s);
 
 function autocomplete() {
 
-    var element = document.getElementById('notification_address');
+    var element = document.getElementById('denouncement_address');
 
     var autocomplete = new google.maps.places.Autocomplete(element);
 
@@ -21,11 +21,12 @@ function autocomplete() {
             return false;
         }
 
-        document.getElementById('notification_latitude').value = place.geometry.location.lat();
-        document.getElementById('notification_longitude').value = place.geometry.location.lng();
+
+        document.getElementById('denouncement_latitude').value = place.geometry.location.lat();
+        document.getElementById('denouncement_longitude').value = place.geometry.location.lng();
     });
 }
 
-document.getElementById('notification_address').addEventListener('keyup', function(){
-   document.getElementById('notification_latitude').value = document.getElementById('notification_longitude').value = '';
-});
+document.getElementById('denouncement_address').addEventListener('keyup', function(){
+    document.getElementById('denouncement_latitude').value = document.getElementById('denouncement_longitude').value = '';
+ }); 

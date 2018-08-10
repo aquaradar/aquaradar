@@ -12,6 +12,10 @@ class NotificationControllerTest extends WebTestCase
 
         $client->request('GET', '/notification');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertSame(
+                Response::HTTP_OK,
+                $client->getResponse()->getStatusCode(),
+                sprintf('The %s public URL loads correctly.', $url)
+        );
     }
 }

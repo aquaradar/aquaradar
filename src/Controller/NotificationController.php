@@ -14,34 +14,30 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class NotificationController extends Controller {
 
     /**
-     * @Route("/notification", name="notification")
+     * @Route("/notification/", name="notification")
      */
     public function index(Request $request) {
-        
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
         $notification = $this->getNotificationEntity();
 
         $form = $this->createForm($this->getNotificationType(), $notification, array());
-        
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $notification = $form->getData();
-            
-            $notification->setInserted((new DateTime('NOW')));
-            
+
+            $notification->setInserted(new DateTime('NOW'));
+
             $notification->setFosUserId($this->getUser()->getId());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($notification);
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Notificação inserida com sucesso!');
 
             return $this->redirectToRoute('notification');
         }
-        
+
         $parameters['form'] = $form->createView();
 
         return $this->render('notification/index.html.twig', $parameters);

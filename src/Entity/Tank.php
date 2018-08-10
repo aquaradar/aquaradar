@@ -3,8 +3,17 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Table;
+use Doctrine\ORM\Mapping\UniqueConstraint;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @Table(name="tank", 
+ *    uniqueConstraints={
+ *        @UniqueConstraint(name="latlon", 
+ *            columns={"latitude", "longitude"})
+ *    }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\TankRepository")
  */
 class Tank
@@ -38,6 +47,12 @@ class Tank
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      minMessage = "A porcentagem do nível do reservatório deve ser entre 0 e 100.",
+     *      maxMessage = "A porcentagem do nível do reservatório deve ser entre 0 e 100."
+     * )
      */
     private $level;
 

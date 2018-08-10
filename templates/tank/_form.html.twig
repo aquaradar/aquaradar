@@ -23,7 +23,7 @@
 {{ form_widget(form.latitude) }}
 {{ form_widget(form.longitude) }}
 <div class="form-group {{ form_errors(form.level) is not empty ? 'has-error' }}">
-    {{ form_label(form.level) }}
+    {{ form_label(form.level) }} (%)
     {{ form_widget(form.level, {'attr' : {'class' : 'form-control', 'maxlength': '255'}}) }}
     {% if form_errors(form.level) is not empty %}
         <label class="control-label">{{ form_errors(form.level) }}</label>

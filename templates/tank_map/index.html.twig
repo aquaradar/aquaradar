@@ -60,9 +60,10 @@
             };
             
             var i=0;
+            var contentString = new Array();
             {% for marker in tankMarkers %}
                 i++;
-                var contentString = '<div id="content">'+
+                contentString[i] = '<div id="content">'+
                     '<div id="siteNotice">'+
                     '</div>'+
                     '<h1 id="firstHeading" class="firstHeading">{{ marker.name}}</h1>'+
@@ -83,7 +84,7 @@
                 });
                 google.maps.event.addListener(newValue, 'click', (function(newValue, i) {
                     return function() {
-                      infowindow.setContent(contentString);
+                      infowindow.setContent(contentString[i]);
                       infowindow.open(map, newValue);
                     }
                 })(newValue, i));                

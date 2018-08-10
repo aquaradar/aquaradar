@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Notification
@@ -37,6 +38,11 @@ class Notification {
 
     /**
      * @var string
+     * @Assert\NotBlank(
+     *  message = "O endereço não pode ser em branco"
+     * )
+     * @Assert\Length(max=255)
+     *
      *
      * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
@@ -51,7 +57,10 @@ class Notification {
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(
+     *     message = "Escolha uma localização válida."
+     * )
+     * 
      * @ORM\Column(name="longitude", type="decimal", precision=11, scale=8, nullable=false)
      */
     private $longitude;

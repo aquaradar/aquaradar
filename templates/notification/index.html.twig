@@ -43,18 +43,29 @@
                         </div>
                     {% endif %}
                     {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+                        {% if form_errors(form) is not empty %}
+                            <div class="alert alert-danger">
+                                <label>{{ form_errors(form) }}</label>
+                            </div>
+                        {% endif %}
                         <div class="form-group {{ form_errors(form.address) is not empty ? 'has-error' }}">
                             {{ form_label(form.address) }}
                             {{ form_widget(form.address, {'attr' : {'class' : 'form-control'}}) }}
                             {% if form_errors(form.address) is not empty %}
-                                <label class="control-label">{{ form_errors(form.address) }}</label>
+                                <br>
+                                <div class="alert alert-danger">
+                                    <label>{{ form_errors(form.address) }}</label>
+                                </div>
                             {% endif %}
                         </div>
                         <div class="form-group {{ form_errors(form.type) is not empty ? 'has-error' }}">
                             {{ form_label(form.type) }}
                             {{ form_widget(form.type, {'attr' : {'class' : 'form-control'}}) }}
                             {% if form_errors(form.type) is not empty %}
-                                <label class="control-label">{{ form_errors(form.type) }}</label>
+                                <br>
+                                <div class="alert alert-danger">
+                                    <label>{{ form_errors(form.type) }}</label>
+                                </div>
                             {% endif %}
                         </div>
                         {{ form_widget(form.send, {'attr' : {'class' : 'btn btn-default'}}) }}

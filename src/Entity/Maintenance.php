@@ -85,7 +85,7 @@ class Maintenance {
         return $this->inserted;
     }
 
-    function getUpdated(): \DateTime {
+    function getUpdated(): ?\DateTime {
         return $this->updated;
     }
 

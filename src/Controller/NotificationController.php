@@ -43,7 +43,9 @@ class NotificationController extends Controller {
 
         $parameters['form'] = $form->createView();
 
-        $parameters['notifications'] = $entityManager->getRepository("App\Entity\Notification")->findAll();
+        $parameters['notifications'] = $entityManager->getRepository("App\Entity\Notification")->findBy(
+            ['fosUserId' => $this->getUser()->getId()]
+        );
 
         return $this->render('notification/index.html.twig', $parameters);
     }

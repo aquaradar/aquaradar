@@ -3,7 +3,7 @@ s.type = "text/javascript";
 s.onload = function () {
     autocomplete();
 };
-s.src = "//maps.googleapis.com/maps/api/js?key=AIzaSyCai41x2wQ6DF0HqF8R552eED4R7s1m1EU&libraries=places";
+s.src = '//maps.googleapis.com/maps/api/js?key=' + gmapKey + '&libraries=places';
 
 document.body.appendChild(s);
 

@@ -9,9 +9,24 @@ document.body.appendChild(s);
 
 function autocomplete() {
 
+    var options = {
+        componentRestrictions: {country: 'br'},
+        strictBounds: true
+    };
+
     var element = document.getElementById('maintenance_address');
 
-    var autocomplete = new google.maps.places.Autocomplete(element);
+    var autocomplete = new google.maps.places.Autocomplete(element, options);
+
+    var geolocation = {
+        lat: -22.3176761,
+        lng: -49.0691349
+    };
+    var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: 8000
+    });
+    autocomplete.setBounds(circle.getBounds());
 
     google.maps.event.addListener(autocomplete, 'place_changed', function () {
         place = autocomplete.getPlace();
@@ -26,6 +41,6 @@ function autocomplete() {
     });
 }
 
-document.getElementById('maintenance_address').addEventListener('keyup', function(){
-   document.getElementById('maintenance_latitude').value = document.getElementById('maintenance_longitude').value = '';
+document.getElementById('maintenance_address').addEventListener('keyup', function () {
+    document.getElementById('maintenance_latitude').value = document.getElementById('maintenance_longitude').value = '';
 });

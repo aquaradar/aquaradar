@@ -15,7 +15,8 @@ class MapController extends Controller {
         $entityManager = $this->getDoctrine()->getManager();
         
         return $this->render('map/index.html.twig', [
-            'markers' => $entityManager->getRepository("App\Entity\Notification")->findAll()
+            'notificationMarkers' => $entityManager->getRepository("App\Entity\Notification")->findAll(),
+            'maintenanceMarkers' => $entityManager->getRepository("App\Entity\Maintenance")->findAll()
         ]);
     }
 

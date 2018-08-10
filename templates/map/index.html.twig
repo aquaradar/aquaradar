@@ -60,16 +60,28 @@
                 vazamento: {
                     name: 'Vazamento',
                     image: '{{ absolute_url(asset('map/vazamentomedio.png')) }}'
+                },
+                manutencao: {
+                    name: 'Manutenção',
+                    image: '{{ absolute_url(asset('map/manutencaomedio.png')) }}'
                 }
             };
 
-            {% for marker in markers %}
-                new google.maps.Marker({
+            {% for marker in notificationMarkers %}
+                var newValue = new google.maps.Marker({
                     position: { lat: {{ marker.latitude }}, lng: {{ marker.longitude }} },
                     map: map,
                     icon: {{ (marker.type == 0) ? 'icons.vazamento.image' : 'icons.faltaDagua.image' }},
                     title: '{{ marker.address }}',
                     type: '{{ (marker.type == 0) ? 'vazamento' : 'faltaDagua' }}'
+                });
+            {% endfor %}
+            {% for marker in maintenanceMarkers %}
+                var newValue = new google.maps.Marker({
+                    position: { lat: {{ marker.latitude }}, lng: {{ marker.longitude }} },
+                    map: map,
+                    icon: icons.manutencao.image,
+                    type: 'manutencao'
                 });
             {% endfor %}
             

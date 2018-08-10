@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard - {{ parent() }}{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+    <script src="/vendor/raphael/raphael.min.js"></script>
+    <script src="/vendor/morrisjs/morris.min.js"></script>
+    <script type="text/javascript" src="/dashboard.js"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> System overview
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <div class="col-lg-8">
+                        <div id="morris-bar-chart"></div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+    
+    <script type="text/javascript">
+        var BarData = [{
+            y: 'Usuários',
+            a: {{ dashboard.count_users }} 
+        }, 
+        {
+            y: 'Denúncias',
+            a: {{ dashboard.count_denouncements }} 
+        }, 
+        {
+            y: 'Manutenção',
+            a: {{ dashboard.count_maintenance }} 
+        }, 
+        {
+            y: 'Vazamento',
+            a: {{ dashboard.count_vazamento }} 
+        },
+        {
+            y: 'Falta d\'água',
+            a: {{ dashboard.count_faltadagua }} 
+        }
+    ];
+    </script>
+{% endblock %}

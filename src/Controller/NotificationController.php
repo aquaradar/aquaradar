@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class NotificationController extends Controller {
 
@@ -17,6 +18,9 @@ class NotificationController extends Controller {
      * @Route("/notification/", name="notification")
      */
     public function index(Request $request) {
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        
         $notification = $this->getNotificationEntity();
 
         $form = $this->createForm($this->getNotificationType(), $notification, array());
@@ -29,7 +33,6 @@ class NotificationController extends Controller {
 
             $notification->setFosUserId($this->getUser()->getId());
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($notification);
             $entityManager->flush();
             
@@ -40,7 +43,33 @@ class NotificationController extends Controller {
 
         $parameters['form'] = $form->createView();
 
+        $parameters['notifications'] = $entityManager->getRepository("App\Entity\Notification")->findBy(
+            ['fosUserId' => $this->getUser()->getId()]
+        );
+
         return $this->render('notification/index.html.twig', $parameters);
+    }
+
+    /**
+     * @Route(
+     *      path            = "/notification/status/atualizar/{notificationId}/{statusId}/",
+     *      requirements    = {"notificationId": "[0-9]+", "statusId": "[0-9]+"},
+     *      methods         = {"GET"}
+     * ),
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function atualizarStatusAction(Request $request, $notificationId, $statusId) {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $notification = $entityManager->getRepository("App\Entity\Notification")->find($notificationId);
+
+        $notification->setStatus($statusId);
+        $notification->setId($notificationId);
+
+        $entityManager->merge($notification);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('notification');
     }
 
     /**

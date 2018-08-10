@@ -53,36 +53,40 @@
             });
 
             var icons = {
-                faltaDagua: {
-                    name: 'Falta D\'agua',
-                    image: '{{ absolute_url(asset('map/semaguamedio.png')) }}'
-                },
-                vazamento: {
-                    name: 'Vazamento',
-                    image: '{{ absolute_url(asset('map/vazamentomedio.png')) }}'
-                },
-                manutencao: {
-                    name: 'Manutenção',
-                    image: '{{ absolute_url(asset('map/manutencaomedio.png')) }}'
+                tank: {
+                    name: 'Reservatórios',
+                    image: '{{ absolute_url(asset('map/reservatoriomedio.png')) }}'
                 }
             };
+            
+            var i=0;
+            {% for marker in tankMarkers %}
+                i++;
+                var contentString = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h1 id="firstHeading" class="firstHeading">{{ marker.name}}</h1>'+
+                    '<div id="bodyContent">'+
+                    '<p>{{ marker.address}}</p>'+
+                    '<p>Nível do reservatório: <b>{{ marker.level}}%</b></p>'+
+                    '</div>'+
+                    '</div>';
 
-            {% for marker in notificationMarkers %}
-                var newValue = new google.maps.Marker({
+                var infowindow = new google.maps.InfoWindow();
+                
+                
+                newValue = new google.maps.Marker({
                     position: { lat: {{ marker.latitude }}, lng: {{ marker.longitude }} },
                     map: map,
-                    icon: {{ (marker.type == 0) ? 'icons.vazamento.image' : 'icons.faltaDagua.image' }},
-                    title: '{{ marker.address }}',
-                    type: '{{ (marker.type == 0) ? 'vazamento' : 'faltaDagua' }}'
+                    icon: icons.tank.image,
+                    type: 'reservatorio'
                 });
-            {% endfor %}
-            {% for marker in maintenanceMarkers %}
-                var newValue = new google.maps.Marker({
-                    position: { lat: {{ marker.latitude }}, lng: {{ marker.longitude }} },
-                    map: map,
-                    icon: icons.manutencao.image,
-                    type: 'manutencao'
-                });
+                google.maps.event.addListener(newValue, 'click', (function(newValue, i) {
+                    return function() {
+                      infowindow.setContent(contentString);
+                      infowindow.open(map, newValue);
+                    }
+                })(newValue, i));                
             {% endfor %}
             
             

@@ -8,15 +8,15 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Forget Password</h3>
+                        <h3 class="panel-title">Esqueci minha senha</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" action="{{ path('fos_user_resetting_send_email') }}" method="POST">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" name="username" placeholder="Username" type="text" autofocus>
+                                    <input class="form-control" name="username" placeholder="Usuário" type="text" autofocus>
                                 </div>
-                                <input type="submit" id="_submit" name="_submit" value="{{ 'resetting.request.submit'|trans }}" class="btn btn-lg btn-success btn-block" />
+                                <input type="submit" id="_submit" name="_submit" value="Resetar senha" class="btn btn-lg btn-success btn-block" />
                             </fieldset>
                         </form>
                     </div>

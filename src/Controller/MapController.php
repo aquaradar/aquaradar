@@ -13,10 +13,10 @@ class MapController extends Controller {
      */
     public function index(Request $request) {
         $entityManager = $this->getDoctrine()->getManager();
-        
+
         return $this->render('map/index.html.twig', [
-            'notificationMarkers' => $entityManager->getRepository("App\Entity\Notification")->findAll(),
-            'maintenanceMarkers' => $entityManager->getRepository("App\Entity\Maintenance")->findAll()
+            'notificationMarkers' => $entityManager->getRepository("App\Entity\Notification")->findByStatus(0),
+            'maintenanceMarkers' => $entityManager->getRepository("App\Entity\Maintenance")->findByStatus(0)
         ]);
     }
 

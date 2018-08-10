@@ -78,34 +78,24 @@
                 <div class="navbar-default sidebar" role="navigation">
                     <div class="sidebar-nav navbar-collapse">
                         <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <!-- /input-group -->
-                            </li>
                             <li class="active">
                                 <a href="{{ path('home') }}"><i class="fa fa-home fa-fw"></i> Home</a>
                             </li>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <li>
-                                    <a href="{{ path('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                                </li>
-                            {% endif %}
                             <li>
                                 <a href="{{ path('notification') }}"><i class="fa fa-bell fa-fw"></i> Notificação</a>
                             </li>
-                            <li>
-                                <a href="{{ path('map') }}"><i class="fa fa-map-marker fa-fw"></i> Mapa</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('tank_map') }}"><i class="fa fa-map-marker fa-fw"></i> Mapa dos reservatórios</a>
-                            </li>
+                            <li class="">
+                                    <a href="#"><i class="fa fa-map fa-fw"></i> Mapas<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
+                                        <li>
+                                            <a href="{{ path('map') }}"><i class="fa fa-map-marker fa-fw"></i> Notificações</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('tank_map') }}"><i class="fa fa-map-marker fa-fw"></i> Reservatórios</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-second-level -->
+                                </li>
                             <li>
                                 <a href="{{ path('denouncement') }}"><i class="fa fa-warning fa-fw"></i> Denúncias</a>
                             </li>
@@ -114,11 +104,14 @@
                                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Administração<span class="fa arrow"></span></a>
                                     <ul class="nav nav-second-level collapse in" aria-expanded="true" style="">
                                         <li>
+                                            <a href="{{ path('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                                        </li>
+                                        <li>
                                             <a href="{{ path('maintenance') }}"><i class="fa fa-wrench fa-fw"></i> Manutenção</a>
                                         </li>
                                         <li>
                                             <a href="{{ path('tank_index') }}"><i class="fa fa-tint fa-fw"></i> Reservatórios</a>
-                                        </li>
+                                        </li>                                        
                                     </ul>
                                     <!-- /.nav-second-level -->
                                 </li>

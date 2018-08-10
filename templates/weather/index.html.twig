@@ -9,7 +9,6 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link href="{{ asset('weather/weather.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
@@ -24,8 +23,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="desktop-only" id="cont_c5633b73ca29f5469085b1f5eb70e4b4"></div>
-                    <div class="mobile-only" id="cont_d3c18c7045fe062898996b86c27522a5"></div>
+                    <div class="hidden-sm hidden-xs" id="cont_c5633b73ca29f5469085b1f5eb70e4b4"></div>
+                    <div class="hidden-lg hidden-md" id="cont_d3c18c7045fe062898996b86c27522a5"></div>
                 </div>
             </div>
             <!-- /.row -->
